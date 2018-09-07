@@ -18,22 +18,3 @@ Route::get('/', function () {
 Auth::routes();
 
 Route::get('/home', 'HomeController@index')->name('home');
-
-$this->get('/verify-user/{code}', 'Auth\RegisterController@activateUser')->name('activate.user');
-
-Route::get('/index', 'UsersManagementController@index');
-
-
-// APP Routes Below
-Route::group(['middleware' => 'web', 'namespace' => 'jeremykenedy\laravelusers\app\Http\Controllers'], function () {
-    Route::resource('users', 'UsersManagementController', [
-        'names' => [
-            'index'   => 'users',
-            'destroy' => 'user.destroy',
-        ],
-    ]);
-});
-
-Route::middleware(['web', 'auth'])->group(function () {
-    Route::post('search-users', 'jeremykenedy\laravelusers\app\Http\Controllers\UsersManagementController@search')->name('search-users');
-});
